@@ -35,12 +35,12 @@ public class UserProfileController {
 	private UserProfileService userProfileService;
 
 
-	@RequestMapping(value = "/insertUser", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<BaseJsonDTO> insertUser(@RequestBody JsonObject userProfileDataJson) {
+	@PostMapping(value = "/registerNewUser")
+	public ResponseEntity<BaseJsonDTO> insertUser(@RequestBody UserProfileData userProfileDataJson) {
 
-		userProfileService.insertUser(userProfileDataJson);
+		String status=userProfileService.insertUser(userProfileDataJson);
 		BaseJsonDTO dto = new BaseJsonDTO();
-		dto.addAnyProperty("status", "OK");
+		dto.addAnyProperty("status", status);
 		//dto.addAnyProperty("springProperty", springProperty);
 		//dto.addAnyProperty("dbProperty", dbConnection);
 		
@@ -48,9 +48,9 @@ public class UserProfileController {
 	}
 
 	@RequestMapping(value = "/getUser", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<BaseJsonDTO> insertUser(@RequestParam String uid) {
+	public ResponseEntity<BaseJsonDTO> insertUser(@RequestParam String mobile) {
 
-		UserProfileData userProfileData=userProfileService.getUser(uid);
+		UserProfileData userProfileData=userProfileService.getUser(mobile);
 		BaseJsonDTO dto = new BaseJsonDTO();
 		dto.addAnyProperty("user", new Gson().toJson(userProfileData));
 		//dto.addAnyProperty("springProperty", springProperty);

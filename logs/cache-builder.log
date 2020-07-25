@@ -1,1 +1,0 @@
-2020-07-07 13:14:01 INFO  PropertyLoaderImpl:31 - Property manager getting initializing. Property files - [properties/DEV/application.properties, properties/DEV/database.properties, properties/DEV/interface.properties]

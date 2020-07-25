@@ -63,7 +63,7 @@ public class CommonConfig implements ApplicationContextAware {
 	
 	@Bean
 	public PropertyLoader getPropertyLoader() {
-		String propertyFolder = "properties/" + this.ENV.getProperty("environment");
+		String propertyFolder = "properties/" + this.ENV.getProperty("env");
 		List<String> propertiesFile = new ArrayList<>();
 		propertiesFile.add(propertyFolder + "/application.properties");
 		propertiesFile.add(propertyFolder + "/database.properties");

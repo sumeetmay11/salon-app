@@ -7,20 +7,31 @@ import com.mysalon.salonparent.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserProfileService {
 
     @Autowired
     UserProfileRepository userProfileRepository;
 
-    public void insertUser(JsonObject jsonObject)
+    public String insertUser(UserProfileData userProfileData)
     {
-        UserProfileData userProfileData=new Gson().fromJson(jsonObject,UserProfileData.class);
+        UserProfileData existing=getUserByMobile(userProfileData.getMobileNumber());
+        if(existing!=null)
+        {
+            return "User already exist";
+        }
+        userProfileData.setUid(UUID.randomUUID().toString());
         userProfileRepository.insert(userProfileData);
-
+        return "Success";
     }
 
-    public UserProfileData getUser(String uid) {
-        return userProfileRepository.findByUid(uid);
+    public UserProfileData getUser(String mobile) {
+        return this.getUserByMobile(mobile);
+    }
+
+    private UserProfileData getUserByMobile(String mobileNumber) {
+        return userProfileRepository.findByMobileNumber(mobileNumber);
     }
 }
